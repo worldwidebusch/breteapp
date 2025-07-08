@@ -189,6 +189,10 @@ async function updateNavigationVisibility() {
             logoutButtonMobile.removeEventListener('click', handleLogout);
         }
     }
+
+    // Remove nav-hidden class after visibility is updated
+    document.querySelector('.main-nav').classList.remove('nav-hidden');
+    document.querySelector('.mobile-nav').classList.remove('nav-hidden');
 }
 
 async function handleLogout(event, redirectUrl = 'index.html') {
@@ -440,7 +444,31 @@ export const translations = {
         applicationSuccessMessage: '¡Has aplicado exitosamente a los turnos seleccionados!',
         selectOneShiftMessage: 'Por favor, selecciona al menos un turno para aplicar.',
         jobPostedSuccess: '¡Trabajo publicado exitosamente!',
-        Pending: 'Pendiente'
+        Pending: 'Pendiente',
+        postJobTitle: 'Publicar un Nuevo Trabajo',
+        jobImageLabel: 'Imagen del Trabajo: *',
+        jobImageHint: 'Esta imagen se mostrará en la tarjeta de trabajo en el feed principal.',
+        removeImageButton: 'Eliminar Imagen',
+        jobTitleLabel: 'Título del Trabajo: *',
+        jobTitlePlaceholder: 'Ej. Limpieza de Hogar',
+        jobDescriptionLabel: 'Descripción: *',
+        jobDescriptionPlaceholder: 'Ej. Limpieza general de casa, incluye cocina y baños.',
+        jobLocationLabel: 'Ubicación (Ciudad): *',
+        selectCityPlaceholder: 'Seleccione una ciudad',
+        exactAddressLabel: 'Dirección Exacta: *',
+        exactAddressPlaceholder: 'Ej. Calle Principal #123, Barrio Central',
+        exactAddressHint: 'Esta ubicación solo será visible para los trabajadores una vez que su solicitud de empleo sea aprobada.',
+        jobWageLabel: 'Salario (por hora): *',
+        jobHoursStartLabel: 'Hora de Inicio: *',
+        jobHoursEndLabel: 'Hora de Fin: *',
+        jobDatesLabel: 'Fechas del Trabajo: *',
+        jobDatesPlaceholder: 'ej., 2025-07-01, 2025-07-05',
+        jobRequirementsLabel: 'Requisitos (separados por comas): *',
+        jobRequirementsPlaceholder: 'ej., Botas de trabajo, Licencia de conducir, Certificado de primeros auxilios',
+        contactPhoneLabel: 'Número de Contacto: *',
+        contactPhonePlaceholder: 'Ej. +505 8888-8888',
+        digitalContractHint: 'Al publicar un trabajo, aceptas nuestro <a href="digital-contract.html" target="_blank">Contrato Digital</a>.',
+        postJobButton: 'Publicar Trabajo'
     }
 };
 
@@ -1021,7 +1049,7 @@ if (contactForm) {
             hours_end: jobHoursEnd,
             requirements: jobRequirements,
             image_url: imageUrl,
-            is_approved: false,
+            is_approved: true,
             client_id: user.id
         };
 

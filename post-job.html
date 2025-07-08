@@ -14,7 +14,7 @@
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></a>
-            <nav class="main-nav">
+            <nav class="main-nav nav-hidden">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active" data-key="jobs">Jobs</a></li>
                     <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
@@ -45,7 +45,7 @@
         </div>
     </header>
 
-    <nav class="mobile-nav">
+    <nav class="mobile-nav nav-hidden">
         <button class="mobile-menu-close-btn"><i class="fas fa-times"></i></button>
         <ul class="nav-links">
             <li><a href="index.html" data-key="jobs">Jobs</a></li>
@@ -72,26 +72,26 @@
             <h2 data-key="postJobTitle">Post a New Job</h2>
             <form id="post-job-form">
                 <div class="form-group">
-                    <label for="job-image">Imagen del Trabajo: *</label>
+                    <label for="job-image" data-key="jobImageLabel">Imagen del Trabajo: *</label>
                     <input type="file" id="job-image" name="job-image" accept="image/*" required>
-                    <small class="form-text-muted">Esta imagen se mostrará en la tarjeta de trabajo en el feed principal.</small>
+                    <small class="form-text-muted" data-key="jobImageHint">Esta imagen se mostrará en la tarjeta de trabajo en el feed principal.</small>
                     <div id="image-preview-container" style="display: none; text-align: center; margin-top: 10px;">
                         <img id="image-preview" src="#" alt="Image Preview" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 5px;">
-                        <button type="button" id="remove-image-button" class="btn btn-secondary" style="margin-top: 10px;">Eliminar Imagen</button>
+                        <button type="button" id="remove-image-button" class="btn btn-secondary" style="margin-top: 10px;" data-key="removeImageButton">Eliminar Imagen</button>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="job-title" data-key="jobTitleLabel">Job Title: *</label>
-                    <input type="text" id="job-title" name="job-title" required placeholder="Ej. Limpieza de Hogar">
+                    <input type="text" id="job-title" name="job-title" required placeholder="Ej. Limpieza de Hogar" data-key="jobTitlePlaceholder">
                 </div>
                 <div class="form-group">
                     <label for="job-description" data-key="jobDescriptionLabel">Description: *</label>
-                    <textarea id="job-description" name="job-description" rows="5" required placeholder="Ej. Limpieza general de casa, incluye cocina y baños."></textarea>
+                    <textarea id="job-description" name="job-description" rows="5" required placeholder="Ej. Limpieza general de casa, incluye cocina y baños." data-key="jobDescriptionPlaceholder"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="job-location" data-key="jobLocationLabel">Ubicación (Ciudad): *</label>
                     <select id="job-location" name="job-location" required>
-                        <option value="">Seleccione una ciudad</option>
+                        <option value="" data-key="selectCityPlaceholder">Seleccione una ciudad</option>
                         <option value="Acoyapa">Acoyapa</option>
                         <option value="Achuapa">Achuapa</option>
                         <option value="Altagracia">Altagracia</option>
@@ -166,9 +166,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="job-exact-address">Dirección Exacta: *</label>
-                    <input type="text" id="job-exact-address" name="job-exact-address" required placeholder="Ej. Calle Principal #123, Barrio Central">
-                    <small class="form-text-muted">Esta ubicación solo será visible para los trabajadores una vez que su solicitud de empleo sea aprobada.</small>
+                    <label for="job-exact-address" data-key="exactAddressLabel">Dirección Exacta: *</label>
+                    <input type="text" id="job-exact-address" name="job-exact-address" required placeholder="Ej. Calle Principal #123, Barrio Central" data-key="exactAddressPlaceholder">
+                    <small class="form-text-muted" data-key="exactAddressHint">Esta ubicación solo será visible para los trabajadores una vez que su solicitud de empleo sea aprobada.</small>
                 </div>
                 <div class="form-group">
                     <label for="job-wage-amount" data-key="jobWageLabel">Wage (per hour): *</label>
@@ -185,24 +185,24 @@
                     <input type="time" id="job-hours-start" name="job-hours-start" required>
                 </div>
                 <div class="form-group">
-                    <label for="job-hours-end">Hora de Fin: *</label>
+                    <label for="job-hours-end" data-key="jobHoursEndLabel">Hora de Fin: *</label>
                     <input type="time" id="job-hours-end" name="job-hours-end" required>
                 </div>
                 <div class="form-group">
-                    <label for="job-dates">Fechas del Trabajo: *</label>
-                    <input type="text" id="job-dates" name="job-dates" readonly required placeholder="ej., 2025-07-01, 2025-07-05">
+                    <label for="job-dates" data-key="jobDatesLabel">Fechas del Trabajo: *</label>
+                    <input type="text" id="job-dates" name="job-dates" readonly required placeholder="ej., 2025-07-01, 2025-07-05" data-key="jobDatesPlaceholder">
                     <input type="hidden" id="selected-job-dates" name="selected-job-dates">
                 </div>
                 <div class="form-group">
-                    <label for="job-requirements">Requisitos (separados por comas): *</label>
-                    <input type="text" id="job-requirements" name="job-requirements" required placeholder="ej., Botas de trabajo, Licencia de conducir, Certificado de primeros auxilios">
+                    <label for="job-requirements" data-key="jobRequirementsLabel">Requisitos (separados por comas): *</label>
+                    <input type="text" id="job-requirements" name="job-requirements" required placeholder="ej., Botas de trabajo, Licencia de conducir, Certificado de primeros auxilios" data-key="jobRequirementsPlaceholder">
                 </div>
                 <div class="form-group">
-                    <label for="contact-phone">Número de Contacto: *</label>
-                    <input type="tel" id="contact-phone" name="contact-phone" required placeholder="Ej. +505 8888-8888">
+                    <label for="contact-phone" data-key="contactPhoneLabel">Número de Contacto: *</label>
+                    <input type="tel" id="contact-phone" name="contact-phone" required placeholder="Ej. +505 8888-8888" data-key="contactPhonePlaceholder">
                 </div>
                 <div class="form-group">
-                    <small class="form-text-muted">Al publicar un trabajo, aceptas nuestro <a href="digital-contract.html" target="_blank">Contrato Digital</a>.</small>
+                    <small class="form-text-muted" data-key="digitalContractHint">Al publicar un trabajo, aceptas nuestro <a href="digital-contract.html" target="_blank">Contrato Digital</a>.</small>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%;" data-key="postJobButton">Post Job</button>
                 <div id="message-display" class="message-container"></div>

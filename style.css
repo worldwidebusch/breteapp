@@ -1,3 +1,7 @@
+.nav-hidden {
+    visibility: hidden;
+}
+
 :root {
     --primary-color: #6A0DAD; /* A shade of purple */
     --secondary-color: #28a745; /* Green from search button */
