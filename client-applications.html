@@ -89,6 +89,10 @@
         import { supabase } from './supabase-client.js';
         import { displayMessage, addMessage, createJobCard } from './script.js';
 
+        document.addEventListener('DOMContentLoaded', () => {
+            loadClientApplications();
+        });
+
         export async function loadClientApplications() {
             const clientJobsList = document.getElementById('client-jobs-list');
 
