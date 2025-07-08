@@ -403,11 +403,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         profileImageUpload.addEventListener('change', async (event) => {
+            console.log('Profile image upload change event fired.');
             const file = event.target.files[0];
             if (file) {
+                console.log('File selected:', file.name, file.type, file.size);
                 const fileExt = file.name.split('.').pop();
                 const fileName = `${user.id}.${fileExt}`;
                 const filePath = `${user.id}/${fileName}`;
+                console.log('Uploading to:', filePath);
 
                 const { error: uploadError } = await supabase.storage
                     .from('avatars')
@@ -418,9 +421,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     displayMessage('Error uploading profile image.', 'error');
                     return;
                 }
-
+                console.log('Image uploaded successfully. Getting public URL...');
                 const { data: publicUrlData } = supabase.storage.from('avatars').getPublicUrl(filePath);
                 const publicUrl = publicUrlData.publicUrl;
+                console.log('Public URL:', publicUrl);
 
                 const { error: updateError } = await supabase
                     .from('profiles')
@@ -436,6 +440,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 currentUser.profile_image_url = publicUrl;
                 displayProfile();
                 displayMessage(translations[currentLang].profileImageUpdated, 'success');
+            } else {
+                console.log('No file selected.');
             }
         });
     }
