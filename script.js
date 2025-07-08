@@ -536,7 +536,7 @@ export async function addMessage(recipientEmail, subject, body) {
     }
 }
 
-function displayMessage(message, type) {
+export function displayMessage(message, type) {
     const messageContainer = document.getElementById('message-display');
     if (messageContainer) {
         messageContainer.textContent = message;
@@ -1032,7 +1032,7 @@ if (contactForm) {
         } else {
             displayMessage(translations[currentLang].jobPostedSuccess, 'success');
             postJobForm.reset();
-            setTimeout(() => { window.location.href = `index.html`; }, 1000);
+            setTimeout(() => { window.location.href = `client-applications.html`; }, 1000);
         }
     });
 }
