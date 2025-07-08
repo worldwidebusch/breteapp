@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>brete.app - Digital Service Agreement</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></a>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active" data-key="jobs">Jobs</a></li>
+                    <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+                    <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+                    <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+
+                    <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+                    <li class="logged-in-only"><a href="#" id="logout-button-desktop" data-key="logout">Logout</a></li>
+                    <li class="desktop-register-buttons logged-out-only">
+                        <a href="register-cliente.html" class="btn btn-accent" data-key="registerContratanteButton">Registrarse como Cliente</a>
+                        <a href="register-trabajador.html" class="btn btn-secondary" data-key="registerChamberoButton">Register as Trabajador</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="mobile-nav">
+        <button class="mobile-menu-close-btn"><i class="fas fa-times"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html" data-key="jobs">Jobs</a></li>
+            <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+            <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+            <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+            <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+            <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+            <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+            <li class="logged-in-only"><a href="#" id="logout-button-mobile" data-key="logout">Logout</a></li>
+        </ul>
+        <div class="mobile-register-button-wrapper logged-out-only">
+            <a href="register-cliente.html" class="btn btn-accent btn-block" data-key="registerClienteButton">Registrarse como Cliente</a>
+            <a href="register-trabajador.html" class="btn btn-accent btn-block" data-key="registerChamberoButton">Register as Trabajador</a>
+        </div>
+        <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 data-key="contractTitle">Digital Service Agreement</h2>
+        <section>
+            <h3 data-key="section1Title">1. Agreement Overview</h3>
+            <p data-key="section1Content">This Digital Service Agreement ("Agreement") is a binding contract between you ("Client") and brete.app ("Platform," "we," "us"). It governs your use of the Platform to post jobs and manage payments for services rendered by independent contractors ("Workers"). By posting a job, you accept all terms and conditions of this Agreement.</p>
+
+            <h3 data-key="section2Title">2. The Service and Payment Process</h3>
+            <p data-key="section2Content">The Platform acts as an intermediary to connect Clients with Workers. To ensure a secure transaction for both parties, we facilitate payments through the following escrow process:</p>
+            <ul>
+                <li data-key="processStep1"><strong>Post a Job:</strong> You submit the details of the work you require.</li>
+                <li data-key="processStep2"><strong>Upfront Payment:</strong> To publish your job posting, you must first pay the total estimated cost (Worker's total wage plus the Platform's service fee) to our designated Wise business bank account.</li>
+                <li data-key="processStep3"><strong>Payment Held in Escrow:</strong> We hold this payment securely in escrow.</li>
+                <li data-key="processStep4"><strong>Work Completion & Confirmation:</strong> After the Worker has completed the job, you must confirm its satisfactory completion via the Platform within 24 hours of the scheduled end time.</li>
+                <li data-key="processStep5"><strong>Payment Release to Worker:</strong> Upon your confirmation, we will release the wage portion of the payment to the Worker. If you fail to confirm or raise a dispute within the 24-hour window, the job will be deemed complete, and the payment will be automatically released to the Worker.</li>
+            </ul>
+
+            <h3 data-key="section3Title">3. Cancellations and Refunds</h3>
+            <p data-key="section3Content">We understand that plans can change. Our refund policy is designed to be fair to both Clients and Workers.</p>
+            <ul>
+                <li data-key="refundRule1"><strong>Worker No-Show:</strong> If the selected Worker fails to arrive at the job location within 60 minutes of the scheduled start time, you are entitled to a full refund of the total amount paid. You must notify us of the no-show through the Platform to initiate the refund process.</li>
+                <li data-key="refundRule2"><strong>Worker Lateness:</strong> If the Worker is more than 60 minutes late without prior communication and you decide to cancel the job as a result, you are entitled to a full refund. If you choose to proceed with the work, the payment terms remain as originally agreed.</li>
+                <li data-key="refundRule3"><strong>Client Cancellation:</strong> If you cancel a job after a Worker has been assigned but more than 24 hours before the start time, you will receive a full refund, less a 5% processing fee. If you cancel within 24 hours of the start time, a 50% cancellation fee will be applied, and the remainder will be refunded.</li>
+            </ul>
+
+            <h3 data-key="section4Title">4. Disputes and Quality of Work</h3>
+            <p data-key="section4Content">If you are not satisfied with the quality of the work performed, you must raise a dispute through the Platform within the 24-hour confirmation window. You should provide a clear explanation and any relevant evidence (e.g., photos). The Platform will mediate the dispute by reviewing the evidence from both you and the Worker. Based on our review, we may, at our sole discretion, issue a partial or full refund. Our decision in the matter is final.</p>
+
+            <h3 data-key="section5Title">5. Limitation of Liability and Indemnification</h3>
+            <p data-key="section5Content">The Platform is a technology service that facilitates connections and payments; we are not an employer, nor do we directly supervise Workers. We are not liable for any damages, losses, or illegal conduct by any user. You agree to indemnify and hold brete.app harmless from any claims or liabilities arising from your use of the Platform.</p>
+
+            <h3 data-key="section6Title">6. Governing Law</h3>
+            <p data-key="section6Content">This Agreement shall be governed by and construed in accordance with the laws of Nicaragua.</p>
+
+            <h3 data-key="section7Title">7. Acceptance</h3>
+            <p data-key="section7Content">By clicking "Post Job" and proceeding with the payment, you acknowledge that you have read, understood, and agree to be bound by the terms of this Digital Service Agreement.</p>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateContent();
+        });
+    </script>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-section about">
+                <h3 class="footer-logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></h3>
+                <p data-key="footerAboutText">Connecting talent with opportunity in Nicaragua.</p>
+            </div>
+            <div class="footer-section links">
+                <h4 data-key="footerQuickLinks">Quick Links</h4>
+                <ul>
+                    <li><a href="index.html" data-key="jobs">Jobs</a></li>
+                    <li><a href="login.html" data-key="login">Login</a></li>
+                    <li><a href="register-cliente.html" data-key="registerContratanteButton">Register as Client</a></li>
+                    <li><a href="register-trabajador.html" data-key="registerChamberoButton">Register as Trabajador</a></li>
+                </ul>
+            </div>
+            <div class="footer-section legal">
+                <h4 data-key="footerLegalSupport">Legal & Support</h4>
+                <ul>
+                    <li><a href="privacy-policy.html" data-key="privacyPolicy">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html" data-key="termsOfService">Terms of Service</a></li>
+                    <li><a href="contact-us.html" data-key="contactUs">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h4 data-key="footerFollowUs">Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-key="footerCopyright">&copy; 2025 <span class="brand-brete">brete</span><span class="brand-app">.app</span> All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>brete.app - Client Applications</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></a>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" data-key="jobs">Jobs</a></li>
+                    <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+                    <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+                    <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+                    <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+                    <li class="logged-in-only"><a href="#" id="logout-button-desktop" data-key="logout">Logout</a></li>
+                    <li class="desktop-register-buttons logged-out-only">
+                        <a href="register-cliente.html" class="btn btn-accent" data-key="registerContratanteButton">Register as Client</a>
+                        <a href="register-trabajador.html" class="btn btn-secondary" data-key="registerChamberoButton">Register as Trabajador</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="language-switcher">
+                    <button data-lang="en" class="lang-button active">EN</button>
+                    <button data-lang="es" class="lang-button">ES</button>
+                </div>
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="mobile-nav">
+        <button class="mobile-menu-close-btn"><i class="fas fa-times"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html" data-key="jobs">Jobs</a></li>
+            <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+            <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+            <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+            <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+            <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+            <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+            <li class="logged-in-only"><a href="#" id="logout-button-mobile" data-key="logout">Logout</a></li>
+        </ul>
+        <div class="mobile-register-button-wrapper logged-out-only">
+            <a href="register-cliente.html" class="btn btn-accent btn-block" data-key="registerClienteButton">Register as Client</a>
+            <a href="register-trabajador.html" class="btn btn-accent btn-block" data-key="registerChamberoButton">Register as Trabajador</a>
+        </div>
+        <div class="language-switcher">
+            <button data-lang="en" class="lang-button active">EN</button>
+            <button data-lang="es" class="lang-button">ES</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 data-key="myJobPosts">My Job Posts</h2>
+        <div id="client-jobs-list"></div>
+    </main>
+
+    <!-- Worker Profile Modal -->
+    <div id="workerProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <img id="worker-profile-image" src="" alt="Worker Profile Image" class="profile-image-modal">
+            <h2 id="worker-profile-name"></h2>
+            <p><strong data-key="fullNameLabel"></strong> <span id="worker-profile-fullname"></span></p>
+            <p><strong data-key="ratingLabel"></strong> <span id="worker-profile-rating"></span></p>
+            <h3 data-key="feedbackHistoryLabel"></h3>
+            <ul id="worker-feedback-history"></ul>
+            <h3 data-key="statisticsLabel"></h3>
+            <ul id="worker-statistics"></ul>
+        </div>
+    </div>
+
+    
+    <script type="module">
+        import { supabase } from './supabase-client.js';
+        import { displayMessage, addMessage, createJobCard } from './script.js';
+
+        export async function loadClientApplications() {
+            const clientJobsList = document.getElementById('client-jobs-list');
+
+            const { data: { user } } = await supabase.auth.getUser();
+
+            const { data: currentUserProfile, error: currentUserProfileError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('email', user.email)
+                .single();
+
+            const { data: jobs, error: jobsError } = await supabase
+                .from('jobs')
+                .select('*')
+                .eq('client_id', user.id);
+
+            if (jobsError) {
+                console.error('Error fetching jobs:', jobsError);
+                displayMessage('Error loading your job posts.', 'error');
+                return;
+            }
+
+            if (jobs.length === 0) {
+                clientJobsList.innerHTML = '<p>Aún no has publicado ningún trabajo.</p>';
+                return;
+            }
+
+            jobs.forEach(async job => {
+                const jobCard = createJobCard(job, 'client-view');
+                clientJobsList.appendChild(jobCard);
+
+                const { data: applications, error: applicationsError } = await supabase
+                    .from('applications')
+                    .select('*, profiles(name, email, profile_image_url, feedback_history, statistics)')
+                    .eq('job_id', job.id);
+
+                if (applicationsError) {
+                    console.error('Error fetching applications:', applicationsError);
+                    return;
+                }
+
+                job.date.forEach(date => {
+                    const dateElement = document.createElement('div');
+                    dateElement.classList.add('application-date-section');
+                    dateElement.innerHTML = `<h4>Applications for ${date}</h4>`;
+                    
+                    const applicantsList = document.createElement('ul');
+                    const applicantsForDate = applications.filter(app => app.date === date);
+
+                    if (applicantsForDate.length > 0) {
+                        applicantsForDate.forEach(applicant => {
+                            const applicantItem = document.createElement('li');
+                            applicantItem.innerHTML = `
+                                <span>${applicant.profiles.name}</span>
+                                <button class="btn btn-secondary view-profile-button" data-worker-id="${applicant.worker_id}">View Profile</button>
+                                <button class="btn btn-primary accept-button" data-job-id="${job.id}" data-date="${date}" data-worker-id="${applicant.worker_id}">Accept</button>
+                                <button class="btn btn-danger decline-button" data-job-id="${job.id}" data-date="${date}" data-worker-id="${applicant.worker_id}">Decline</button>
+                            `;
+                            applicantsList.appendChild(applicantItem);
+                        });
+                    } else {
+                        applicantsList.innerHTML = '<li>No applications for this date.</li>';
+                    }
+                    dateElement.appendChild(applicantsList);
+                    clientJobsList.appendChild(dateElement);
+                });
+            });
+
+            // Worker Profile Modal Logic
+            const workerProfileModal = document.getElementById('workerProfileModal');
+            const closeButton = document.querySelector('#workerProfileModal .close-button');
+
+            closeButton.addEventListener('click', () => {
+                workerProfileModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === workerProfileModal) {
+                    workerProfileModal.style.display = 'none';
+                }
+            });
+
+            // Accept and Decline Logic
+            document.addEventListener('click', async function(event) {
+                if (event.target.classList.contains('view-profile-button')) {
+                    console.log('View Profile button clicked.', event.target);
+                    const workerId = event.target.dataset.workerId;
+                    console.log('Worker ID from dataset:', workerId);
+
+                    const { data: worker, error: workerError } = await supabase
+                        .from('profiles')
+                        .select('name, email, profile_image_url, feedback_history, statistics')
+                        .eq('id', workerId)
+                        .single();
+
+                    if (workerError || !worker) {
+                        console.error('Error fetching worker profile:', workerError);
+                        displayMessage('Worker profile not found.', 'error');
+                        return;
+                    }
+
+                    document.getElementById('worker-profile-image').src = worker.profile_image_url || 'images/default-profile.svg';
+                    document.getElementById('worker-profile-name').textContent = worker.name;
+                    document.getElementById('worker-profile-fullname').textContent = worker.name;
+                    document.getElementById('worker-profile-rating').textContent = `${worker.rating || 'N/A'} / 5`;
+
+                    const feedbackHistoryList = document.getElementById('worker-feedback-history');
+                    feedbackHistoryList.innerHTML = '';
+                    if (worker.feedback_history && worker.feedback_history.length > 0) {
+                        worker.feedback_history.forEach(feedback => {
+                            const li = document.createElement('li');
+                            li.textContent = `Rating: ${feedback.rating}/5 - "${feedback.comment}" (by ${feedback.client})`;
+                            feedbackHistoryList.appendChild(li);
+                        });
+                    } else {
+                        feedbackHistoryList.innerHTML = '<li>No feedback yet.</li>';
+                    }
+
+                    const statisticsList = document.getElementById('worker-statistics');
+                    statisticsList.innerHTML = '';
+                    if (worker.statistics) {
+                        for (const key in worker.statistics) {
+                            const li = document.createElement('li');
+                            li.textContent = `${key}: ${worker.statistics[key]}`;
+                            statisticsList.appendChild(li);
+                        }
+                    } else {
+                        statisticsList.innerHTML = '<li>No statistics available.</li>';
+                    }
+
+                    workerProfileModal.style.display = 'block';
+
+                } else if (event.target.classList.contains('accept-button')) {
+                    if (!confirm(translations[currentLang].acceptConfirmation)) {
+                        return;
+                    }
+                    console.log('Accept button clicked.', event.target);
+                    const jobId = event.target.dataset.jobId;
+                    const date = event.target.dataset.date;
+                    const workerId = event.target.dataset.workerId;
+                    console.log(`Accepting application for Job ID: ${jobId}, Date: ${date}, Worker ID: ${workerId}`);
+
+                    const { error: updateError } = await supabase
+                        .from('applications')
+                        .update({ status: 'accepted' })
+                        .eq('job_id', jobId)
+                        .eq('date', date)
+                        .eq('worker_id', workerId);
+
+                    if (updateError) {
+                        console.error('Error accepting application:', updateError);
+                        displayMessage('Error accepting application.', 'error');
+                        return;
+                    }
+
+                    // Fetch job and worker details for messaging
+                    const { data: job, error: jobError } = await supabase.from('jobs').select('title, company, wage_amount, wage_currency, hours_start, hours_end').eq('id', jobId).single();
+                    const { data: worker, error: workerError } = await supabase.from('profiles').select('name, email').eq('id', workerId).single();
+
+                    if (jobError || workerError || !job || !worker) {
+                        console.error('Error fetching job or worker for messaging:', jobError || workerError);
+                        displayMessage('Error sending messages.', 'error');
+                        return;
+                    }
+
+                    // Message to Worker
+                    await addMessage(worker.email,
+                                   `Application Accepted for ${job.title} on ${date}`,
+                                   `Congratulations! Your application for the job "${job.title}" on ${date} has been accepted by ${job.company}. Please contact them for further details.`);
+                    
+                    // Message to Client (confirmation)
+                    await addMessage(currentUserProfile.email,
+                                   `Worker Accepted for ${job.title} on ${date}`,
+                                   `You have accepted ${worker.name} for the job "${job.title}" on ${date}.`);
+
+                    displayMessage('Application accepted and messages sent!', 'success');
+                    
+                    // Redirect to payment page or update UI
+                    const totalHours = (new Date(`1970-01-01T${job.hours_end}Z`) - new Date(`1900-01-01T${job.hours_start}Z`)) / 3600000;
+                    const wageForDay = totalHours * job.wage_amount;
+                    window.location.href = `payment.html?wageAmount=${wageForDay}&wageCurrency=${job.wage_currency}`;
+
+                } else if (event.target.classList.contains('decline-button')) {
+                    if (!confirm(translations[currentLang].declineConfirmation)) {
+                        return;
+                    }
+                    console.log('Decline button clicked.', event.target);
+                    const jobId = event.target.dataset.jobId;
+                    const date = event.target.dataset.date;
+                    const workerId = event.target.dataset.workerId;
+                    console.log(`Declining application for Job ID: ${jobId}, Date: ${date}, Worker ID: ${workerId}`);
+
+                    const { error: updateError } = await supabase
+                        .from('applications')
+                        .update({ status: 'declined' })
+                        .eq('job_id', jobId)
+                        .eq('date', date)
+                        .eq('worker_id', workerId);
+
+                    if (updateError) {
+                        console.error('Error declining application:', updateError);
+                        displayMessage('Error declining application.', 'error');
+                        return;
+                    }
+
+                    // Send message to Worker
+                    const { data: job, error: jobError } = await supabase.from('jobs').select('title, company').eq('id', jobId).single();
+                    const { data: worker, error: workerError } = await supabase.from('profiles').select('name, email').eq('email', worker.email).single();
+
+                    if (jobError || workerError || !job || !worker) {
+                        console.error('Error fetching job or worker for messaging:', jobError || workerError);
+                        displayMessage('Error sending message.', 'error');
+                        return;
+                    }
+
+                    await addMessage(worker.email,
+                                   `Application Declined for ${job.title} on ${date}`,
+                                   `We regret to inform you that your application for the job "${job.title}" on ${date} has been declined by ${job.company}.`);
+                    displayMessage('Application declined and message sent.', 'info');
+                    
+                    // Refresh the list or remove the declined application from view
+                    event.target.closest('li').remove();
+                }
+            });
+        };
+    </script>
+</body>
+</html>

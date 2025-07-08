@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>brete.app - Apply for Job</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></a>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active" data-key="jobs">Jobs</a></li>
+                    <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+                    <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+                    <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+
+                    <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+                    <li class="logged-in-only"><a href="#" id="logout-button-desktop" data-key="logout">Logout</a></li>
+                    <li class="desktop-register-buttons logged-out-only">
+                        <a href="register-cliente.html" class="btn btn-accent" data-key="registerContratanteButton">Registrarse como Cliente</a>
+                        <a href="register-trabajador.html" class="btn btn-secondary" data-key="registerChamberoButton">Register as Trabajador</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="mobile-nav">
+        <button class="mobile-menu-close-btn"><i class="fas fa-times"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html" data-key="jobs">Jobs</a></li>
+            <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+            <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+            <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+            <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+            <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+            <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+            <li class="logged-in-only"><a href="#" id="logout-button-mobile" data-key="logout">Logout</a></li>
+        </ul>
+        <div class="mobile-register-button-wrapper logged-out-only">
+            <a href="register-cliente.html" class="btn btn-accent btn-block" data-key="registerClienteButton">Registrarse como Cliente</a>
+            <a href="register-trabajador.html" class="btn btn-accent btn-block" data-key="registerChamberoButton">Register as Trabajador</a>
+        </div>
+        <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 data-key="applyForJobTitle">Apply for Job</h2>
+        <div id="job-application-details" class="job-card"></div>
+        <h3 data-key="selectShiftsPrompt">Select the shifts you want to apply for:</h3>
+        <form id="apply-form">
+            <div id="shifts-container" class="shifts-container"></div>
+            <button type="submit" class="btn btn-primary" data-key="applyForShiftsButton">Apply for Selected Shifts</button>
+        </form>
+    </main>
+
+    
+    <script type="module">
+        import { supabase } from './supabase-client.js';
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                displayMessage('You must be logged in to apply for a job.', 'error');
+                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+                return;
+            }
+
+            const { data: currentUserProfile, error: profileError } = await supabase
+                .from('profiles')
+                .select('name, role')
+                .eq('email', user.email)
+                .single();
+
+            if (profileError || currentUserProfile.role !== 'trabajador') {
+                displayMessage('You must be logged in as a worker to apply for a job.', 'error');
+                setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+                return;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('id');
+            
+            const { data: job, error: jobError } = await supabase
+                .from('jobs')
+                .select('title, company, description, date, wage_amount, wage_currency, hours_start, hours_end, requirements, image_url, is_approved, exact_address, contact_phone, location')
+                .eq('id', jobId)
+                .single();
+
+            if (jobError || !job) {
+                console.error('Error fetching job:', jobError);
+                displayMessage('Job not found.', 'error');
+                return;
+            }
+
+            const jobDetailsContainer = document.getElementById('job-application-details');
+            jobDetailsContainer.innerHTML = `
+                <div class="job-card-content">
+                    <h3 class="job-card-title">${job.title}</h3>
+                    <p class="job-card-company">${job.company}</p>
+                    <p class="job-card-description">${job.description}</p>
+                </div>
+            `;
+
+            const shiftsContainer = document.getElementById('shifts-container');
+            job.date.forEach(date => {
+                const shiftElement = document.createElement('div');
+                shiftElement.classList.add('shift-item');
+                shiftElement.innerHTML = `
+                    <input type="checkbox" id="shift-${date}" name="shifts" value="${date}">
+                    <label for="shift-${date}">${date}</label>
+                `;
+                shiftsContainer.appendChild(shiftElement);
+            });
+
+            const applyForm = document.getElementById('apply-form');
+            applyForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const selectedShifts = Array.from(document.querySelectorAll('input[name="shifts"]:checked')).map(cb => cb.value);
+                if (selectedShifts.length === 0) {
+                    displayMessage(translations[currentLang].selectOneShiftMessage, 'error');
+                    return;
+                }
+
+                const { data: existingApplications, error: existingAppError } = await supabase
+                    .from('applications')
+                    .select('id')
+                    .eq('job_id', jobId)
+                    .eq('worker_id', user.id);
+
+                if (existingAppError) {
+                    console.error('Error checking existing applications:', existingAppError);
+                    displayMessage('Error checking application status.', 'error');
+                    return;
+                }
+
+                if (existingApplications && existingApplications.length > 0) {
+                    displayMessage(translations[currentLang].alreadyApplied, 'info');
+                    document.querySelector('button[type="submit"]').disabled = true;
+                    return;
+                }
+                
+                const applicationsToInsert = selectedShifts.map(shiftDate => ({
+                    job_id: jobId,
+                    date: shiftDate,
+                    worker_id: user.id,
+                    status: 'pending'
+                }));
+
+                const { error: insertError } = await supabase
+                    .from('applications')
+                    .insert(applicationsToInsert);
+
+                if (insertError) {
+                    console.error('Error submitting application:', insertError);
+                    displayMessage('Error submitting application.', 'error');
+                    return;
+                }
+
+                displayMessage(translations[currentLang].applicationSuccessMessage, 'success');
+                setTimeout(() => { window.location.href = 'job-applications.html'; }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><span class="brand-brete">brete</span><span class="brand-app">.app</span> - Choose Your Role</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></a>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active" data-key="jobs">Jobs</a></li>
+                    <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+                    <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+                    <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+
+                    <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+                    <li class="logged-in-only"><a href="#" id="logout-button-desktop" data-key="logout">Logout</a></li>
+                    <li class="desktop-register-buttons logged-out-only">
+                        <a href="register-cliente.html" class="btn btn-accent" data-key="registerContratanteButton">Registrarse como Cliente</a>
+                        <a href="register-trabajador.html" class="btn btn-secondary" data-key="registerChamberoButton">Register as Trabajador</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="mobile-nav">
+        <button class="mobile-menu-close-btn"><i class="fas fa-times"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html" data-key="jobs">Jobs</a></li>
+            <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+            <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+            <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+            <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+            <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+            <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+            <li class="logged-in-only"><a href="#" id="logout-button-mobile" data-key="logout">Logout</a></li>
+        </ul>
+        <div class="mobile-register-button-wrapper logged-out-only">
+            <a href="register-cliente.html" class="btn btn-accent btn-block" data-key="registerClienteButton">Registrarse como Cliente</a>
+            <a href="register-trabajador.html" class="btn btn-accent btn-block" data-key="registerChamberoButton">Register as Trabajador</a>
+        </div>
+        <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="form-container">
+            <h2 data-key="chooseRegistrationType">Join <span class="brand-brete">brete</span><span class="brand-app">.app</span></h2>
+            <p class="text-center" data-key="chooseRolePrompt">First, tell us what you want to do.</p>
+            <div class="choice-container">
+                <div class="role-card" onclick="location.href='register-cliente.html'">
+                    <i class="fas fa-user-tie icon-large"></i>
+                    <h3 data-key="clienteRole">Cliente</h3>
+                    <p data-key="clienteDescription">I want to hire a freelancer for a project.</p>
+                    <button class="btn btn-accent" data-key="registerClienteButton">Registrarse como Cliente</button>
+                </div>
+                <div class="role-card" onclick="location.href='register-trabajador.html'">
+                    <i class="fas fa-hard-hat icon-large"></i>
+                    <h3 data-key="chamberoRole" class="trabajador-title">Trabajador</h3>
+                    <p data-key="chamberoDescription">I'm looking for work.</p>
+                    <button class="btn btn-secondary btn-trabajador" data-key="registerChamberoButton">Register as Trabajador</button>
+                </div>
+            </div>
+             <p class="form-link" data-key="alreadyHaveAccount">¿Ya tienes una cuenta? <a href="login.html" data-key="loginHere">Inicia sesión aquí</a></p>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="footer-section about">
+            <h3 class="footer-logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></h3>
+            <p data-key="footerAboutText">Connecting talent with opportunity in Nicaragua.</p>
+        </div>
+        <div class="footer-section links">
+            <h4 data-key="footerQuickLinks">Quick Links</h4>
+            <ul>
+                <li><a href="index.html" data-key="jobs">Jobs</a></li>
+                <li><a href="profile.html" data-key="myProfile">My Profile</a></li>
+                <li><a href="login.html" data-key="login">Login</a></li>
+                <li><a href="register-choice.html" data-key="register">Register</a></li>
+            </ul>
+        </div>
+        <div class="footer-section legal">
+            <h4 data-key="footerLegalSupport">Legal & Support</h4>
+            <ul>
+                <li><a href="privacy-policy.html" data-key="privacyPolicy">Privacy Policy</a></li>
+                <li><a href="terms-of-service.html" data-key="termsOfService">Terms of Service</a></li>
+                <li><a href="contact-us.html" data-key="contactUs">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section social">
+            <h4 data-key="footerFollowUs">Follow Us</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p data-key="footerCopyright">&copy; 2025 <span class="brand-brete">brete</span><span class="brand-app">.app</span> All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

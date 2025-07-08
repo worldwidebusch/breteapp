@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><span class="brand-brete">brete</span><span class="brand-app">.app</span> - Post a Job</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></a>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active" data-key="jobs">Jobs</a></li>
+                    <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+                    <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+                    <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+
+                    <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+                    <li class="logged-in-only"><a href="#" id="logout-button-desktop" data-key="logout">Logout</a></li>
+                    <li class="desktop-register-buttons logged-out-only">
+                        <a href="register-cliente.html" class="btn btn-accent" data-key="registerContratanteButton">Registrarse como Cliente</a>
+                        <a href="register-trabajador.html" class="btn btn-secondary" data-key="registerChamberoButton">Register as Trabajador</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="mobile-nav">
+        <button class="mobile-menu-close-btn"><i class="fas fa-times"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html" data-key="jobs">Jobs</a></li>
+            <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+            <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+            <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+            <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+            <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+            <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+            <li class="logged-in-only"><a href="#" id="logout-button-mobile" data-key="logout">Logout</a></li>
+        </ul>
+        <div class="mobile-register-button-wrapper logged-out-only">
+            <a href="register-cliente.html" class="btn btn-accent btn-block" data-key="registerClienteButton">Registrarse como Cliente</a>
+            <a href="register-trabajador.html" class="btn btn-accent btn-block" data-key="registerChamberoButton">Register as Trabajador</a>
+        </div>
+        <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="form-container">
+            <h2 data-key="postJobTitle">Post a New Job</h2>
+            <form id="post-job-form">
+                <div class="form-group">
+                    <label for="job-image">Imagen del Trabajo: *</label>
+                    <input type="file" id="job-image" name="job-image" accept="image/*" required>
+                    <small class="form-text-muted">Esta imagen se mostrará en la tarjeta de trabajo en el feed principal.</small>
+                    <div id="image-preview-container" style="display: none; text-align: center; margin-top: 10px;">
+                        <img id="image-preview" src="#" alt="Image Preview" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 5px;">
+                        <button type="button" id="remove-image-button" class="btn btn-secondary" style="margin-top: 10px;">Eliminar Imagen</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="job-title" data-key="jobTitleLabel">Job Title: *</label>
+                    <input type="text" id="job-title" name="job-title" required placeholder="Ej. Limpieza de Hogar">
+                </div>
+                <div class="form-group">
+                    <label for="job-description" data-key="jobDescriptionLabel">Description: *</label>
+                    <textarea id="job-description" name="job-description" rows="5" required placeholder="Ej. Limpieza general de casa, incluye cocina y baños."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="job-location" data-key="jobLocationLabel">Ubicación (Ciudad): *</label>
+                    <select id="job-location" name="job-location" required>
+                        <option value="">Seleccione una ciudad</option>
+                        <option value="Acoyapa">Acoyapa</option>
+                        <option value="Achuapa">Achuapa</option>
+                        <option value="Altagracia">Altagracia</option>
+                        <option value="Bluefields">Bluefields</option>
+                        <option value="Boaco">Boaco</option>
+                        <option value="Bonanza">Bonanza</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Camoapa">Camoapa</option>
+                        <option value="Cárdenas">Cárdenas</option>
+                        <option value="Catarina">Catarina</option>
+                        <option value="Chichigalpa">Chichigalpa</option>
+                        <option value="Chinandega">Chinandega</option>
+                        <option value="Cinco Pinos">Cinco Pinos</option>
+                        <option value="Ciudad Antigua">Ciudad Antigua</option>
+                        <option value="Ciudad Darío">Ciudad Darío</option>
+                        <option value="Ciudad Sandino">Ciudad Sandino</option>
+                        <option value="Comalapa">Comalapa</option>
+                        <option value="Condega">Condega</option>
+                        <option value="Corinto">Corinto</option>
+                        <option value="Corn Island">Corn Island</option>
+                        <option value="Desembocadura de Río Grande">Desembocadura de Río Grande</option>
+                        <option value="Dipilto">Dipilto</option>
+                        <option value="Diriá">Diriá</option>
+                        <option value="Diriamba">Diriamba</option>
+                        <option value="Diriomo">Diriomo</option>
+                        <option value="Dolores">Dolores</option>
+                        <option value="El Almendro">El Almendro</option>
+                        <option value="El Ayote">El Ayote</option>
+                        <option value="El Castillo">El Castillo</option>
+                        <option value="El Coral">El Coral</option>
+                        <option value="El Rama">El Rama</option>
+                        <option value="El Rosario">El Rosario</option>
+                        <option value="El Sauce">El Sauce</option>
+                        <option value="El Viejo">El Viejo</option>
+                        <option value="Estelí">Estelí</option>
+                        <option value="Esquipulas">Esquipulas</option>
+                        <option value="Granada">Granada</option>
+                        <option value="Jalapa">Jalapa</option>
+                        <option value="La Concepción">La Concepción</option>
+                        <option value="La Concordia">La Concordia</option>
+                        <option value="La Paz Centro">La Paz Centro</option>
+                        <option value="León">León</option>
+                        <option value="Managua">Managua</option>
+                        <option value="Masaya">Masaya</option>
+                        <option value="Nandaime">Nandaime</option>
+                        <option value="Pearl Lagoon">Pearl Lagoon</option>
+                        <option value="Potosí">Potosí</option>
+                        <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+                        <option value="Puerto Cabezas">Puerto Cabezas</option>
+                        <option value="Rancho Grande">Rancho Grande</option>
+                        <option value="Rivas">Rivas</option>
+                        <option value="Rosita">Rosita</option>
+                        <option value="San Carlos">San Carlos</option>
+                        <option value="San Dionisio">San Dionisio</option>
+                        <option value="San Fernando">San Fernando</option>
+                        <option value="San Francisco del Norte">San Francisco del Norte</option>
+                        <option value="San Juan de Cinco Pinos">San Juan de Cinco Pinos</option>
+                        <option value="San Juan de Limay">San Juan de Limay</option>
+                        <option value="San Juan de Nicaragua">San Juan de Nicaragua</option>
+                        <option value="San Juan del Sur">San Juan del Sur</option>
+                        <option value="San Lucas">San Lucas</option>
+                        <option value="San Marcos">San Marcos</option>
+                        <option value="San Nicolás">San Nicolás</option>
+                        <option value="San Pedro del Norte">San Pedro del Norte</option>
+                        <option value="San Rafael del Norte">San Rafael del Norte</option>
+                        <option value="San Lorenzo">San Lorenzo</option>
+                        <option value="Santa Teresa">Santa Teresa</option>
+                        <option value="Santo Domingo">Santo Domingo</option>
+                        <option value="Tuma-La Dalia">Tuma-La Dalia</option>
+                        <option value="Villa El Carmen">Villa El Carmen</option>
+                        <option value="Villa Sandino">Villa Sandino</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="job-exact-address">Dirección Exacta: *</label>
+                    <input type="text" id="job-exact-address" name="job-exact-address" required placeholder="Ej. Calle Principal #123, Barrio Central">
+                    <small class="form-text-muted">Esta ubicación solo será visible para los trabajadores una vez que su solicitud de empleo sea aprobada.</small>
+                </div>
+                <div class="form-group">
+                    <label for="job-wage-amount" data-key="jobWageLabel">Wage (per hour): *</label>
+                    <div style="display: flex; gap: 10px;">
+                        <select id="job-wage-amount" name="job-wage-amount" required style="flex-grow: 1;"></select>
+                        <select id="job-wage-currency" name="job-wage-currency" style="width: auto;">
+                            <option value="USD">USD</option>
+                            <option value="NIO">NIO</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="job-hours-start" data-key="jobHoursStartLabel">Start Time: *</label>
+                    <input type="time" id="job-hours-start" name="job-hours-start" required>
+                </div>
+                <div class="form-group">
+                    <label for="job-hours-end">Hora de Fin: *</label>
+                    <input type="time" id="job-hours-end" name="job-hours-end" required>
+                </div>
+                <div class="form-group">
+                    <label for="job-dates">Fechas del Trabajo: *</label>
+                    <input type="text" id="job-dates" name="job-dates" readonly required placeholder="ej., 2025-07-01, 2025-07-05">
+                    <input type="hidden" id="selected-job-dates" name="selected-job-dates">
+                </div>
+                <div class="form-group">
+                    <label for="job-requirements">Requisitos (separados por comas): *</label>
+                    <input type="text" id="job-requirements" name="job-requirements" required placeholder="ej., Botas de trabajo, Licencia de conducir, Certificado de primeros auxilios">
+                </div>
+                <div class="form-group">
+                    <label for="contact-phone">Número de Contacto: *</label>
+                    <input type="tel" id="contact-phone" name="contact-phone" required placeholder="Ej. +505 8888-8888">
+                </div>
+                <div class="form-group">
+                    <small class="form-text-muted">Al publicar un trabajo, aceptas nuestro <a href="digital-contract.html" target="_blank">Contrato Digital</a>.</small>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;" data-key="postJobButton">Post Job</button>
+                <div id="message-display" class="message-container"></div>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script type="module">
+        import { supabase } from './supabase-client.js';
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            const wageAmountSelect = document.getElementById('job-wage-amount');
+            const wageCurrencySelect = document.getElementById('job-wage-currency');
+
+            function populateWages(currency) {
+                wageAmountSelect.innerHTML = ''; // Clear existing options
+                if (currency === 'USD') {
+                    for (let i = 2; i <= 99; i++) {
+                        const option = document.createElement('option');
+                        option.value = i;
+                        option.textContent = i;
+                        wageAmountSelect.appendChild(option);
+                    }
+                } else if (currency === 'NIO') {
+                    for (let i = 50; i <= 999; i += 10) {
+                        const option = document.createElement('option');
+                        option.value = i;
+                        option.textContent = i;
+                        wageAmountSelect.appendChild(option);
+                    }
+                }
+            }
+
+            // Initial population based on the default selected currency
+            populateWages(wageCurrencySelect.value);
+
+            // Add event listener to currency select
+            wageCurrencySelect.addEventListener('change', (event) => {
+                populateWages(event.target.value);
+            });
+
+            flatpickr("#job-dates", {
+                mode: "multiple",
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                onClose: function(selectedDates, dateStr, instance) {
+                    document.getElementById('selected-job-dates').value = dateStr;
+                }
+            });
+
+            const jobHoursStart = document.getElementById('job-hours-start');
+            const jobHoursEnd = document.getElementById('job-hours-end');
+            const postJobButton = document.querySelector('button[type="submit"]');
+
+            function updateEndTimeMin() {
+                console.log('updateEndTimeMin called');
+                if (jobHoursStart.value) {
+                    console.log('Start Time value:', jobHoursStart.value);
+                    const startTime = new Date(`2000-01-01T${jobHoursStart.value}:00`);
+                    startTime.setHours(startTime.getHours() + 4); // Add 4 hours
+                    const minEndTime = startTime.toTimeString().slice(0, 5);
+                    console.log('Calculated minEndTime:', minEndTime);
+                    jobHoursEnd.min = minEndTime;
+                    console.log('jobHoursEnd.min set to:', jobHoursEnd.min);
+                    // If current end time is less than minEndTime, reset it
+                    if (jobHoursEnd.value && jobHoursEnd.value < minEndTime) {
+                        jobHoursEnd.value = minEndTime;
+                        console.log('End Time reset to:', jobHoursEnd.value);
+                    }
+                } else {
+                    jobHoursEnd.min = ''; // No minimum if start time is not set
+                    console.log('Start Time empty, jobHoursEnd.min cleared.');
+                }
+            }
+
+            jobHoursStart.addEventListener('input', updateEndTimeMin);
+
+            // Initial call in case start time is pre-filled (though unlikely for new forms)
+            updateEndTimeMin();
+
+            // Populate form for editing
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('id');
+
+            if (jobId) {
+                const { data: jobToEdit, error } = await supabase
+                    .from('jobs')
+                    .select('*')
+                    .eq('id', jobId)
+                    .single();
+
+                if (error) {
+                    console.error('Error fetching job for editing:', error);
+                    return;
+                }
+
+                if (jobToEdit) {
+                    document.getElementById('job-title').value = jobToEdit.title;
+                    document.getElementById('job-description').value = jobToEdit.description;
+                    document.getElementById('job-location').value = jobToEdit.location;
+                    document.getElementById('job-exact-address').value = jobToEdit.exact_address;
+                    document.getElementById('job-wage-amount').value = jobToEdit.wage_amount;
+                    document.getElementById('job-wage-currency').value = jobToEdit.wage_currency;
+                    document.getElementById('job-hours-start').value = jobToEdit.hours_start;
+                    document.getElementById('job-hours-end').value = jobToEdit.hours_end;
+                    document.getElementById('selected-job-dates').value = jobToEdit.date.join(',');
+                    flatpickr("#job-dates").setDate(jobToEdit.date);
+                    document.getElementById('job-requirements').value = jobToEdit.requirements.join(',');
+                    document.getElementById('contact-phone').value = jobToEdit.contact_phone;
+
+                    // Handle image preview
+                    if (jobToEdit.image_url) {
+                        const imagePreview = document.getElementById('image-preview');
+                        const imagePreviewContainer = document.getElementById('image-preview-container');
+                        const jobImageInput = document.getElementById('job-image');
+
+                        imagePreview.src = jobToEdit.image_url;
+                        imagePreviewContainer.style.display = 'block';
+                        jobImageInput.style.display = 'none';
+                    }
+
+                    // Change button text to Update Job
+                    postJobButton.textContent = 'Update Job';
+                }
+            }
+        });
+    </script>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="footer-section about">
+            <h3 class="footer-logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></h3>
+            <p data-key="footerAboutText">Connecting talent with opportunity in Nicaragua.</p>
+        </div>
+        <div class="footer-section links">
+            <h4 data-key="footerQuickLinks">Quick Links</h4>
+            <ul>
+                <li><a href="index.html" data-key="jobs">Jobs</a></li>
+                <li><a href="login.html" data-key="login">Login</a></li>
+                <li><a href="register-cliente.html" data-key="registerContratanteButton">Registrarse como Cliente</a></li>
+                <li><a href="register-trabajador.html" data-key="registerChamberoButton">Register as Trabajador</a></li>
+        </div>
+        <div class="footer-section legal">
+            <h4 data-key="footerLegalSupport">Legal & Support</h4>
+            <ul>
+                <li><a href="privacy-policy.html" data-key="privacyPolicy">Privacy Policy</a></li>
+                <li><a href="terms-of-service.html" data-key="termsOfService">Terms of Service</a></li>
+                <li><a href="contact-us.html" data-key="contactUs">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section social">
+            <h4 data-key="footerFollowUs">Follow Us</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p data-key="footerCopyright">&copy; 2025 <span class="brand-brete">brete</span><span class="brand-app">.app</span> All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

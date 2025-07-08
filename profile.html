@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><span class="brand-brete">brete</span><span class="brand-app">.app</span> - My Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></a>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active" data-key="jobs">Jobs</a></li>
+                    <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+                    <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+                    <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+                    <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+
+                    <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+                    <li class="logged-in-only"><a href="#" id="logout-button-desktop" data-key="logout">Logout</a></li>
+                    <li class="desktop-register-buttons logged-out-only">
+                        <a href="register-cliente.html" class="btn btn-accent" data-key="registerContratanteButton">Registrarse como Cliente</a>
+                        <a href="register-trabajador.html" class="btn btn-secondary" data-key="registerChamberoButton">Register as Trabajador</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+                <button class="hamburger-menu" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="mobile-nav">
+        <button class="mobile-menu-close-btn"><i class="fas fa-times"></i></button>
+        <ul class="nav-links">
+            <li><a href="index.html" data-key="jobs">Jobs</a></li>
+            <li class="logged-in-only"><a href="profile.html" data-key="myProfile">My Profile</a></li>
+            <li class="logged-in-only client-nav-item"><a href="post-job.html" data-key="postJob">Post a Job</a></li>
+            <li class="logged-in-only client-nav-item"><a href="client-applications.html" data-key="myJobPosts">My Job Posts</a></li>
+            <li class="logged-in-only worker-nav-item"><a href="job-applications.html" data-key="myApplications">My Applications</a></li>
+            <li class="logged-in-only"><a href="messages.html" data-key="messages">Messages</a></li>
+            <li class="logged-out-only"><a href="login.html" data-key="login">Login</a></li>
+            <li class="logged-in-only"><a href="#" id="logout-button-mobile" data-key="logout">Logout</a></li>
+        </ul>
+        <div class="mobile-register-button-wrapper logged-out-only">
+            <a href="register-cliente.html" class="btn btn-accent btn-block" data-key="registerClienteButton">Registrarse como Cliente</a>
+            <a href="register-trabajador.html" class="btn btn-accent btn-block" data-key="registerChamberoButton">Register as Trabajador</a>
+        </div>
+        <div class="language-switcher">
+            <button data-lang="en" class="lang-button">EN</button>
+            <button data-lang="es" class="lang-button active">ES</button>
+        </div>
+    </nav>
+
+    <main class="container profile-container">
+        <div class="profile-header">
+            <div class="profile-image-section">
+                <div class="profile-avatar" id="profile-avatar">
+                    <img id="profile-image" src="" alt="Profile Avatar" style="display: none;">
+                    <i id="profile-icon" class="fas fa-user"></i>
+                    <input type="file" id="profile-image-upload" accept="image/*" style="display: none;" required>
+                </div>
+                <p id="profile-upload-prompt" data-key="uploadProfilePhoto">Upload Profile Photo</p>
+            </div>
+            <div class="profile-header-info">
+                <h2 class="profile-name">
+                    <input type="text" id="profile-name-edit" value="John Doe" class="hidden" placeholder="Ej: John Doe" required>
+                    <span id="profile-role" class="profile-role">Cliente</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="profile-card contact-info-card">
+            <div class="view-mode">
+                <h3 data-key="contactInfo">Contact Information</h3>
+                <button class="btn btn-secondary edit-card-button" data-target-card="contact-info-card">Editar</button>
+                <div class="detail-grid">
+                    <p><strong data-key="profileEmailLabel">Email:</strong> <span id="profile-email-view">john.doe@example.com</span></p>
+                    <p><strong data-key="profilePhoneLabel">Phone:</strong> <span id="profile-phone-view">+505 1234-5678</span></p>
+                </div>
+            </div>
+            <div class="edit-mode hidden">
+                <h3 data-key="contactInfo">Edit Contact Information</h3>
+                <div class="form-group">
+                    <label for="profile-email-edit" data-key="profileEmailLabel">Email:</label>
+                    <input type="email" id="profile-email-edit" value="john.doe@example.com" placeholder="ejemplo@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-phone-edit" data-key="profilePhoneLabel">Phone:</label>
+                    <input type="tel" id="profile-phone-edit" value="+505 1234-5678" placeholder="+505 1234-5678" required>
+                </div>
+                <div class="edit-buttons">
+                    <button class="btn btn-primary save-card-button" data-target-card="contact-info-card">Save</button>
+                    <button class="btn btn-secondary cancel-card-button" data-target-card="contact-info-card">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="cliente-details" class="profile-card cliente-details-card" style="display: none;">
+            <div class="view-mode">
+                <h3 data-key="businessInfo">Business Information</h3>
+                <button class="btn btn-secondary edit-card-button" data-target-card="cliente-details"><i class="fas fa-edit"></i> Edit</button>
+                <div class="detail-grid">
+                    <p><strong data-key="profileBusinessNameLabel">Business Name:</strong> <span id="profile-business-name-view">ABC Corp</span></p>
+                    <p><strong data-key="profileAddressLabel">Address:</strong> <span id="profile-address-view">123 Main St, Managua</span></p>
+                    <p><strong data-key="profileContactPersonLabel">Contact Person (Full Official Name):</strong> <span id="profile-contact-person-view">Jane Smith</span></p>
+                    <p><strong data-key="profileLegalDocsLabel">Legal Docs:</strong> <span id="profile-legal-docs-view">NIC-12345</span></p>
+                    <p><strong data-key="taxIdLabel">Tax ID Number (RUC/Número de Identificación Fiscal):</strong> <span id="profile-tax-id-view"></span></p>
+                    
+                </div>
+            </div>
+            <div class="edit-mode hidden">
+                <h3 data-key="businessInfo">Edit Business Information</h3>
+                <div class="form-group">
+                    <label for="profile-business-name-edit" data-key="profileBusinessNameLabel">Business Name (Registered or Unregistered):</label>
+                    <input type="text" id="profile-business-name-edit" value="ABC Corp" placeholder="Ej: Mi Negocio S.A." required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-address-edit" data-key="profileAddressLabel">Address:</label>
+                    <input type="text" id="profile-address-edit" value="123 Main St, Managua" placeholder="Ej: Calle Principal, Managua" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-contact-person-edit" data-key="profileContactPersonLabel">Contact Person (Full Official Name):</label>
+                    <input type="text" id="profile-contact-person-edit" value="Jane Smith" placeholder="Ej: Juan Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-legal-docs-edit" data-key="profileLegalDocsLabel">Legal Docs:</label>
+                    <input type="text" id="profile-legal-docs-edit" value="NIC-12345" placeholder="Ej: NIC-12345">
+                </div>
+                <div class="form-group">
+                    <label for="profile-tax-id-edit" data-key="taxIdLabel">Tax ID Number (RUC/Número de Identificación Fiscal):</label>
+                    <input type="text" id="profile-tax-id-edit" placeholder="Ej: 123456-789-0" >
+                </div>
+                
+                <div class="edit-buttons">
+                    <button class="btn btn-primary save-card-button" data-target-card="cliente-details">Save</button>
+                    <button class="btn btn-secondary cancel-card-button" data-target-card="cliente-details">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="trabajador-details" class="profile-card trabajador-details-card" style="display: none;">
+            <div class="view-mode">
+                <h3 data-key="personalInfo">Personal Information</h3>
+                <button class="btn btn-secondary edit-card-button" data-target-card="trabajador-details" data-key="editButton"><i class="fas fa-edit"></i> Edit</button>
+                <div class="detail-grid">
+                    <p><strong data-key="fullNameLabel">Nombre Completo Oficial:</strong> <span id="profile-full-name-view"></span></p>
+                    <p><strong data-key="fullNameLabel">Nombre Completo Oficial:</strong> <span id="profile-full-name-view"></span></p>
+                    <p><strong data-key="idNumberLabel">ID Number (Cédula de Identidad):</strong> <span id="profile-id-number-view"></span></p>
+                    <p><strong data-key="dateOfBirthLabel">Fecha de Nacimiento:</strong> <span id="profile-dob-view"></span></p>
+                    <p><strong data-key="birthplaceLabel">Lugar de Nacimiento:</strong> <span id="profile-birthplace-view"></span></p>
+                    <p><strong data-key="emergencyContactPhoneLabel">Teléfono de Contacto de Emergencia:</strong> <span id="profile-emergency-contact-phone-view"></span></p>
+                    <p><strong data-key="birthplaceLabel">Lugar de Nacimiento:</strong> <span id="profile-birthplace-view"></span></p>
+                    <p><strong data-key="emergencyContactPhoneLabel">Teléfono de Contacto de Emergencia:</strong> <span id="profile-emergency-contact-phone-view"></span></p>
+                    
+                    <p><strong data-key="bankNameLabel">Nombre del Banco:</strong> <span id="profile-bank-name-trabajador-view"></span></p>
+                    <p><strong data-key="accountTypeLabel">Tipo de Cuenta:</strong> <span id="profile-account-type-trabajador-view"></span></p>
+                    <p><strong data-key="accountNumberLabel">Número de Cuenta:</strong> <span id="profile-account-number-trabajador-view"></span></p>
+                    <p><strong data-key="resumeLabel">Resume/CV:</strong> <a href="#" id="profile-resume-link-view" target="_blank">View Resume</a></p>
+                </div>
+            </div>
+            <div class="edit-mode hidden">
+                <h3 data-key="personalInfo">Edit Personal Information</h3>
+                <div class="form-group">
+                    <label for="profile-full-name-edit" data-key="fullNameLabel">Nombre Completo Oficial:</label>
+                    <input type="text" id="profile-full-name-edit" placeholder="Ej: Juan Carlos Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-id-number-edit" data-key="idNumberLabel">ID Number (Cédula de Identidad):</label>
+                    <input type="text" id="profile-id-number-edit" placeholder="Ej: 001-010190-0000A" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-dob-edit" data-key="dateOfBirthLabel">Fecha de Nacimiento:</label>
+                    <input type="date" id="profile-dob-edit" placeholder="YYYY-MM-DD" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-birthplace-edit" data-key="birthplaceLabel">Lugar de Nacimiento:</label>
+                    <input type="text" id="profile-birthplace-edit" placeholder="Ej: Managua" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-emergency-contact-phone-edit" data-key="emergencyContactPhoneLabel">Teléfono de Contacto de Emergencia:</label>
+                    <input type="tel" id="profile-emergency-contact-phone-edit" placeholder="Ej: +505 8888-7777" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="profile-bank-name-trabajador-edit" data-key="bankNameLabel">Nombre del Banco:</label>
+                    <input type="text" id="profile-bank-name-trabajador-edit" placeholder="Ej: Banco de América Central" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-account-type-trabajador-edit" data-key="accountTypeLabel">Tipo de Cuenta:</label>
+                    <select id="profile-account-type-trabajador-edit" required>
+                        <option value="Ahorro">Ahorro</option>
+                        <option value="Corriente">Corriente</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="profile-account-number-trabajador-edit" data-key="accountNumberLabel">Número de Cuenta:</label>
+                    <input type="text" id="profile-account-number-trabajador-edit" placeholder="Ej: 1234567890" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-resume-link-edit" data-key="resumeLabel">Resume/CV:</label>
+                    <input type="file" id="profile-resume-link-edit" accept=".pdf,.doc,.docx" required>
+                </div>
+                <div class="edit-buttons">
+                    <button class="btn btn-primary save-card-button" data-target-card="trabajador-details">Save</button>
+                    <button class="btn btn-secondary cancel-card-button" data-target-card="trabajador-details">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div id="trabajador-applications" class="profile-card" style="display: none;">
+            <h3>My Applications</h3>
+            <div id="applications-list"></div>
+        </div>
+
+        <div class="edit-buttons hidden">
+            <button id="save-profile-button" class="btn btn-primary">Save</button>
+            <button id="cancel-edit-button" class="btn btn-secondary">Cancel</button>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+    <script src="profile.js" type="module"></script>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="footer-section about">
+            <h3 class="footer-logo"><span class="brand-brete">brete</span><span class="brand-app">.app</span></h3>
+            <p data-key="footerAboutText">Connecting talent with opportunity in Nicaragua.</p>
+        </div>
+        <div class="footer-section links">
+            <h4 data-key="footerQuickLinks">Quick Links</h4>
+            <ul>
+                <li><a href="index.html" data-key="jobs">Jobs</a></li>
+                <li><a href="login.html" data-key="login">Login</a></li>
+                <li><a href="register-cliente.html" data-key="registerContratanteButton">Registrarse como Cliente</a></li>
+                <li><a href="register-trabajador.html" data-key="registerChamberoButton">Register as Trabajador</a></li>
+        </div>
+        <div class="footer-section legal">
+            <h4 data-key="footerLegalSupport">Legal & Support</h4>
+            <ul>
+                <li><a href="privacy-policy.html" data-key="privacyPolicy">Privacy Policy</a></li>
+                <li><a href="terms-of-service.html" data-key="termsOfService">Terms of Service</a></li>
+                <li><a href="contact-us.html" data-key="contactUs">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section social">
+            <h4 data-key="footerFollowUs">Follow Us</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p data-key="footerCopyright">&copy; 2025 <span class="brand-brete">brete</span><span class="brand-app">.app</span> All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>
