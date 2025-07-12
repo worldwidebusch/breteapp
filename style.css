@@ -1199,10 +1199,6 @@ input:focus, textarea:focus, select:focus {
     .client-jobs-list {
         grid-template-columns: repeat(3, 1fr); /* Force 3 columns for desktop */
     }
-
-    .client-jobs-list .job-card {
-        max-width: 350px; /* Limit card width on desktop */
-    }
 }
 
 .client-jobs-list .job-card {
