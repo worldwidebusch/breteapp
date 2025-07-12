@@ -605,10 +605,10 @@ function updateContent() {
 }
 
 function truncateText(text, maxLength) {
-    if (text.length > maxLength) {
+    if (text && text.length > maxLength) {
         return text.substring(0, maxLength) + '...';
     }
-    return text;
+    return text || '';
 }
 
 export async function createJobCard(job, context = 'default') {
@@ -721,7 +721,7 @@ async function displayJobsForDate(date, filteredJobs = null) {
     if (filteredJobs) {
         jobsToDisplay = filteredJobs;
     } else {
-        const { data, error } = await supabase.from('jobs').select('*').eq('date', formattedDate);
+        const { data, error } = await supabase.from('jobs').select('*').contains('date', [formattedDate]);
         if (error) {
             console.error('Error fetching jobs:', error);
         } else {

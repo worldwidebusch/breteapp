@@ -1,5 +1,5 @@
 import { supabase } from './supabase-client.js';
-import { translations } from './script.js';
+import { translations, currentLang } from './script.js';
 
 // Function to display messages (e.g., success or error)
 function displayMessage(message, type) {
