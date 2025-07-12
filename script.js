@@ -619,11 +619,14 @@ export async function createJobCard(job, context = 'default') {
     jobCard.classList.add('job-card');
     jobCard.dataset.jobId = job.id;
 
-    const wageFormatted = new Intl.NumberFormat(currentLang === 'en' ? 'en-US' : 'es-NI', {
-        style: 'currency',
-        currency: job.wage_currency,
-        minimumFractionDigits: 2,
-    }).format(job.wage_amount);
+    let wageFormatted = 'N/A'; // Default value
+    if (job.wage_amount && job.wage_currency) {
+        wageFormatted = new Intl.NumberFormat(currentLang === 'en' ? 'en-US' : 'es-NI', {
+            style: 'currency',
+            currency: job.wage_currency,
+            minimumFractionDigits: 2,
+        }).format(job.wage_amount);
+    }
 
     let actionsHtml = '';
     if (context === 'client-view') {
