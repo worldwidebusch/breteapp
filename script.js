@@ -685,10 +685,10 @@ export async function createJobCard(job, context = 'default') {
                 ${job.is_approved ? `<div class="detail-item"><i class="fas fa-phone"></i> ${job.contact_phone}</div>` : ''}
                 <div class="detail-item"><i class="fas fa-money-bill-wave"></i> ${wageFormatted}/hora</div>
                 <div class="detail-item"><i class="fas fa-clock"></i> ${job.hours_start} - ${job.hours_end}</div>
-                <div class="detail-item"><i class="fas fa-calendar-alt"></i> ${(Array.isArray(job.date) ? job.date.map(d => (d || '').replace(/[[\]"]/g, '').trim()).filter(d => d !== '').join(', ') : (job.date || '').replace(/[[\]"]/g, '').trim())}</div>
+                <div class="detail-item"><i class="fas fa-calendar-alt"></i> ${(Array.isArray(job.date) ? job.date.map(d => (d || '').replace(/[[\]"']/g, '').trim()).filter(d => d !== '').join(', ') : (job.date || '').replace(/[[\]"']/g, '').split(',').map(d => d.trim()).filter(d => d !== '').join(', '))}</div>
             </div>
             <div class="job-card-tags">
-                ${(Array.isArray(job.requirements) ? job.requirements.map(req => (req || '').replace(/[[\]"]/g, '').trim()) : (job.requirements || '').replace(/[[\]"]/g, '').split(',').map(req => req.trim())).filter(req => req !== '').map(req => `<span class="tag">${req}</span>`).join('')}
+                ${(Array.isArray(job.requirements) ? job.requirements.map(req => (req || '').replace(/[[\]"']/g, '').trim()) : (job.requirements || '').replace(/[[\]"']/g, '').split(',').map(req => req.trim())).filter(req => req !== '').map(req => `<span class="tag">${req}</span>`).join('')}
             </div>
             ${actionsHtml}
         </div>
