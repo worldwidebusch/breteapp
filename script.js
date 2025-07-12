@@ -479,11 +479,12 @@ let currentUser = null;
 
 
 async function initializeJobs() {
-    const { data, error } = await supabase.from('jobs').select('id');
+    const { data, error } = await supabase.from('jobs').select('*'); // Fetch all jobs
     if (error) {
-        console.error('Error checking for existing jobs:', error);
+        console.error('Error fetching jobs:', error);
         return;
     }
+    jobs = data; // Populate the global jobs array
 
     if (data.length === 0) {
         const defaultJobs = [
