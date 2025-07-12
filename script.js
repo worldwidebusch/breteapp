@@ -688,7 +688,7 @@ export async function createJobCard(job, context = 'default') {
                 <div class="detail-item"><i class="fas fa-calendar-alt"></i> ${job.date}</div>
             </div>
             <div class="job-card-tags">
-                ${(Array.isArray(job.requirements) ? job.requirements : (job.requirements || '').split(',')).map(req => `<span class="tag">${req.trim()}</span>`).join('')}
+                ${(Array.isArray(job.requirements) ? job.requirements : (job.requirements || '').replace(/[[\]]/g, '').split(',')).map(req => `<span class="tag">${req.trim()}</span>`).join('')}
             </div>
             ${actionsHtml}
         </div>
