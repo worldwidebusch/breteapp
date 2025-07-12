@@ -632,7 +632,6 @@ export async function createJobCard(job, context = 'default') {
     if (context === 'client-view') {
         actionsHtml = `
             <div class="job-card-actions">
-                <button class="btn btn-secondary" style="background-color: #800080; color: white;" onclick="window.location.href='post-job.html?id=${job.id}'">${translations[currentLang].editButton}</button>
                 <button class="btn btn-danger" style="background-color: white; color: black;" onclick="cancelJob('${job.id}')">${translations[currentLang].cancelButton}</button>
                 <button class="btn btn-primary" onclick="window.location.href='job-applications.html?id=${job.id}'">${translations[currentLang].viewApplicationsButton}</button>
             </div>
