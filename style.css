@@ -1205,6 +1205,13 @@ input:focus, textarea:focus, select:focus {
     margin-bottom: 0; /* Reset margin as gap handles spacing */
     border: 1px solid var(--border-color);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%; /* Ensure it takes full width on mobile */
+}
+
+@media (min-width: 768px) {
+    .client-jobs-list .job-card {
+        width: auto; /* Let grid control width on desktop */
+    }
 }
 
 .client-jobs-list .job-card-content {
