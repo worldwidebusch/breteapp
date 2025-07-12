@@ -1197,7 +1197,7 @@ input:focus, textarea:focus, select:focus {
 
 @media (min-width: 768px) {
     .client-jobs-list {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Multi-column for desktop */
+        grid-template-columns: repeat(3, 1fr); /* Force 3 columns for desktop */
     }
 
     .client-jobs-list .job-card {

@@ -1026,7 +1026,8 @@ if (contactForm) {
             if (error) {
                 console.error('Error uploading image:', error);
             } else {
-                imageUrl = data.path;
+                const { data: publicUrlData } = supabase.storage.from('job-images').getPublicUrl(data.path);
+                imageUrl = publicUrlData.publicUrl;
             }
         }
 
