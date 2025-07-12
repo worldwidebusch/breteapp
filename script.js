@@ -697,7 +697,7 @@ export async function createJobCard(job, context = 'default') {
     return jobCard;
 }
 
-async function cancelJob(jobId) {
+export export async function cancelJob(jobId) {
     if (confirm('Are you sure you want to cancel this job?')) {
         const { error } = await supabase
             .from('jobs')
