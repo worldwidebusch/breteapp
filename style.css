@@ -245,12 +245,24 @@ input:focus, textarea:focus, select:focus {
     position: relative;
 }
 
+.profile-image-modal {
+    width: 100px; /* Fixed width */
+    height: 100px; /* Fixed height */
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    display: block; /* Ensure it takes up its own line */
+    margin: 0 auto 20px auto; /* Center horizontally and add bottom margin */
+    border: 3px solid var(--primary-color); /* Add a border */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
+}
+
 .modal-content h2 {
     color: var(--primary-color);
     margin-top: 0;
     margin-bottom: 20px;
     border-bottom: 2px solid var(--primary-color); /* Stronger underline */
     padding-bottom: 10px;
+    text-align: center; /* Center the worker's name */
 }
 
 .modal-content h3 {
@@ -259,10 +271,12 @@ input:focus, textarea:focus, select:focus {
     margin-bottom: 15px;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 5px;
+    text-align: center; /* Center section titles */
 }
 
 .modal-content p {
     margin-bottom: 10px;
+    text-align: center; /* Center profile details */
 }
 
 .modal-content strong {
@@ -1175,8 +1189,20 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Additional styles for client-applications.html */
+.client-jobs-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to single column for mobile */
+    gap: 20px; /* Space between cards */
+}
+
+@media (min-width: 768px) {
+    .client-jobs-list {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Multi-column for desktop */
+    }
+}
+
 .client-jobs-list .job-card {
-    margin-bottom: 30px;
+    margin-bottom: 0; /* Reset margin as gap handles spacing */
     border: 1px solid var(--border-color);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
