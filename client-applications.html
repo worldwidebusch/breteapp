@@ -120,8 +120,11 @@
                 return;
             }
 
-            jobs.forEach(async job => {
-                const jobCard = createJobCard(job, 'client-view');
+            clientJobsList.innerHTML = ''; // Clear previous content
+
+            for (const job of jobs) {
+                const jobCard = await createJobCard(job, 'client-view');
+                if (!jobCard) continue; // Skip if card creation failed
                 clientJobsList.appendChild(jobCard);
 
                 const { data: applications, error: applicationsError } = await supabase
@@ -131,35 +134,37 @@
 
                 if (applicationsError) {
                     console.error('Error fetching applications:', applicationsError);
-                    return;
+                    continue;
                 }
 
-                job.date.forEach(date => {
-                    const dateElement = document.createElement('div');
-                    dateElement.classList.add('application-date-section');
-                    dateElement.innerHTML = `<h4>Applications for ${date}</h4>`;
-                    
-                    const applicantsList = document.createElement('ul');
-                    const applicantsForDate = applications.filter(app => app.date === date);
+                if (job.date && Array.isArray(job.date)) {
+                    job.date.forEach(date => {
+                        const dateElement = document.createElement('div');
+                        dateElement.classList.add('application-date-section');
+                        dateElement.innerHTML = `<h4>Applications for ${date}</h4>`;
+                        
+                        const applicantsList = document.createElement('ul');
+                        const applicantsForDate = applications.filter(app => app.date === date);
 
-                    if (applicantsForDate.length > 0) {
-                        applicantsForDate.forEach(applicant => {
-                            const applicantItem = document.createElement('li');
-                            applicantItem.innerHTML = `
-                                <span>${applicant.profiles.name}</span>
-                                <button class="btn btn-secondary view-profile-button" data-worker-id="${applicant.worker_id}">View Profile</button>
-                                <button class="btn btn-primary accept-button" data-job-id="${job.id}" data-date="${date}" data-worker-id="${applicant.worker_id}">Accept</button>
-                                <button class="btn btn-danger decline-button" data-job-id="${job.id}" data-date="${date}" data-worker-id="${applicant.worker_id}">Decline</button>
-                            `;
-                            applicantsList.appendChild(applicantItem);
-                        });
-                    } else {
-                        applicantsList.innerHTML = '<li>No applications for this date.</li>';
-                    }
-                    dateElement.appendChild(applicantsList);
-                    clientJobsList.appendChild(dateElement);
-                });
-            });
+                        if (applicantsForDate.length > 0) {
+                            applicantsForDate.forEach(applicant => {
+                                const applicantItem = document.createElement('li');
+                                applicantItem.innerHTML = `
+                                    <span>${applicant.profiles.name}</span>
+                                    <button class="btn btn-secondary view-profile-button" data-worker-id="${applicant.worker_id}">View Profile</button>
+                                    <button class="btn btn-primary accept-button" data-job-id="${job.id}" data-date="${date}" data-worker-id="${applicant.worker_id}">Accept</button>
+                                    <button class="btn btn-danger decline-button" data-job-id="${job.id}" data-date="${date}" data-worker-id="${applicant.worker_id}">Decline</button>
+                                `;
+                                applicantsList.appendChild(applicantItem);
+                            });
+                        } else {
+                            applicantsList.innerHTML = '<li>No applications for this date.</li>';
+                        }
+                        dateElement.appendChild(applicantsList);
+                        clientJobsList.appendChild(dateElement);
+                    });
+                }
+            }
 
             // Worker Profile Modal Logic
             const workerProfileModal = document.getElementById('workerProfileModal');
